@@ -1,5 +1,5 @@
 ---
-title: OAI Chat
+title: Claude Chat
 emoji: 📈
 colorFrom: yellow
 colorTo: gray
@@ -10,4 +10,4 @@ pinned: false
 license: mit
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+Chat interface based on the Anthropic Claude foundation models.
