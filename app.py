@@ -5,6 +5,7 @@ from anthropic import Anthropic
 import json
 
 from doc2json import process_docx
+from settings_mgr import generate_download_settings_js, generate_upload_settings_js
 
 dump_controls = False
 log_to_console = False
@@ -187,12 +188,14 @@ with gr.Blocks() as demo:
     with gr.Accordion("Settings"):
         api_key = gr.Textbox(label="Anthropic API Key", elem_id="api_key")
         model = gr.Dropdown(label="Model", value="claude-3-opus-20240229", allow_custom_value=True, elem_id="model",
-                            choices=["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307"])
+                            choices=["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307", "claude-2.1", "claude-2.0", "claude-instant-1.2"])
         system_prompt = gr.TextArea("You are a helpful AI.", label="System Prompt", lines=3, max_lines=250, elem_id="system_prompt")  
         temp = gr.Slider(0, 1, label="Temperature", elem_id="temp", value=1)
         max_tokens = gr.Slider(1, 4000, label="Max. Tokens", elem_id="max_tokens", value=800)
         save_button = gr.Button("Save Settings")  
         load_button = gr.Button("Load Settings")  
+        dl_settings_button = gr.Button("Download Settings")
+        ul_settings_button = gr.Button("Upload Settings")
 
         load_button.click(load_settings, js="""  
             () => {  
@@ -215,6 +218,16 @@ with gr.Blocks() as demo:
                 localStorage.setItem('model', model);  
             }  
         """) 
+
+        control_ids = [('api_key', '#api_key textarea'),
+                       ('system_prompt', '#system_prompt textarea'),
+                       ('temp', '#temp input'),
+                       ('max_tokens', '#max_tokens input'),
+                       ('model', '#model')]
+        controls = [api_key, system_prompt, temp, max_tokens, model]
+
+        dl_settings_button.click(None, controls, js=generate_download_settings_js("claude_chat_settings.bin", control_ids))
+        ul_settings_button.click(None, None, None, js=generate_upload_settings_js(control_ids))
 
     chatbot = gr.Chatbot(
         [],
