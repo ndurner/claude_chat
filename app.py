@@ -185,7 +185,12 @@ def import_history(history, file):
 with gr.Blocks() as demo:
     gr.Markdown("# Anthropic™️ Claude™️ Chat (Nils' Version™️)")
 
-    with gr.Accordion("Settings"):
+    with gr.Accordion("Startup"):
+        gr.Markdown("""Use of this interface permitted under the terms and conditions of the 
+                    [MIT license](https://github.com/ndurner/oai_chat/blob/main/LICENSE).
+                    Third party terms and conditions apply, particularly
+                    those of the LLM vendor (Anthropic) and hosting provider (Hugging Face).""")
+        
         api_key = gr.Textbox(label="Anthropic API Key", elem_id="api_key")
         model = gr.Dropdown(label="Model", value="claude-3-opus-20240229", allow_custom_value=True, elem_id="model",
                             choices=["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307", "claude-2.1", "claude-2.0", "claude-instant-1.2"])
