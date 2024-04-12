@@ -194,7 +194,7 @@ with gr.Blocks() as demo:
         api_key = gr.Textbox(label="Anthropic API Key", elem_id="api_key")
         model = gr.Dropdown(label="Model", value="claude-3-opus-20240229", allow_custom_value=True, elem_id="model",
                             choices=["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307", "claude-2.1", "claude-2.0", "claude-instant-1.2"])
-        system_prompt = gr.TextArea("You are a helpful AI.", label="System Prompt", lines=3, max_lines=250, elem_id="system_prompt")  
+        system_prompt = gr.TextArea("You are a helpful yet diligent AI assistant. Answer faithfully and factually correct. Respond with 'I do not know' if uncertain.", label="System Prompt", lines=3, max_lines=250, elem_id="system_prompt")  
         temp = gr.Slider(0, 1, label="Temperature", elem_id="temp", value=1)
         max_tokens = gr.Slider(1, 4000, label="Max. Tokens", elem_id="max_tokens", value=800)
         save_button = gr.Button("Save Settings")  
